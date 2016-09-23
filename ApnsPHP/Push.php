@@ -292,6 +292,8 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 	 */
 	protected function _readErrorMessage()
 	{
+        stream_set_timeout($this->_hSocket, 0, $this->_nSocketSelectTimeout);
+
 		$sErrorResponse = @fread($this->_hSocket, self::ERROR_RESPONSE_SIZE);
 		if ($sErrorResponse === false || strlen($sErrorResponse) != self::ERROR_RESPONSE_SIZE) {
 			return;
